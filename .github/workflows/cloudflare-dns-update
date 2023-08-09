@@ -1,4 +1,4 @@
-name: Update Cloudflare DNS
+name: Update Cloudflare DNS (Type A)
 
 on:
   push:
@@ -12,20 +12,14 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Update Cloudflare DNS
+      - name: Update Cloudflare DNS (Type A)
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ZONE_ID: 028fe144f0673d1b4206a2022a01e268
+          DOMAIN: karazo.com
+          IP_ADDRESS: 172.67.183.232
         run: |
-          # Replace with your Cloudflare Zone ID and DNS record ID
-          ZONE_ID="028fe144f0673d1b4206a2022a01e268"
-          DNS_RECORD_ID="2af930e9699323a4fdaf95b1d525a34e"
-          
-          # Replace with your domain and GitHub Pages CNAME
-          DOMAIN="www.karazo.com"
-          GITHUB_PAGES_CNAME="isaadiqbal.github.io/laughing-waddle/"
-
-          # Call Cloudflare API to update DNS record
-          curl -X PUT "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records/$DNS_RECORD_ID" \
+          curl -X PUT "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_ZONE_ID/dns_records" \
             -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
             -H "Content-Type: application/json" \
-            --data "{\"type\":\"CNAME\",\"name\":\"$DOMAIN\",\"content\":\"$GITHUB_PAGES_CNAME\",\"ttl\":1,\"proxied\":true}"
+            --data "{\"type\":\"A\",\"name\":\"$DOMAIN\",\"content\":\"$IP_ADDRESS\",\"ttl\":1,\"proxied\":false}"
