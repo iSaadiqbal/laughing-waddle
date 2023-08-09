@@ -18,7 +18,7 @@ jobs:
         run: |
           # Replace with your Cloudflare Zone ID and DNS record ID
           ZONE_ID="028fe144f0673d1b4206a2022a01e268"
-          DNS_RECORD_ID="6a5d98f8426472219dd0e1cce9911212"
+          DNS_RECORD_ID="087f1b3b1a8428ee41210b0e4395c3a1"
           
           # Replace with your domain and GitHub Pages CNAME
           DOMAIN="karazo.com"
