@@ -28,4 +28,4 @@ jobs:
           curl -X PUT "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records/$DNS_RECORD_ID" \
             -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
             -H "Content-Type: application/json" \
-            --data "{\"type\":\"A\",\"name\":\"$DOMAIN\",\"content\":\"$GITHUB_PAGES_A\",\"ttl\":1,\"proxied\":true}"
+            --data "{\"type\":\"CNAME\",\"name\":\"$DOMAIN\",\"content\":\"$GITHUB_PAGES_CNAME\",\"ttl\":1,\"proxied\":true}"
