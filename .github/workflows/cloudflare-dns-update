@@ -18,14 +18,14 @@ jobs:
         run: |
           # Replace with your Cloudflare Zone ID and DNS record ID
           ZONE_ID="028fe144f0673d1b4206a2022a01e268"
-          DNS_RECORD_ID="087f1b3b1a8428ee41210b0e4395c3a1"
+          DNS_RECORD_ID="2af930e9699323a4fdaf95b1d525a34e"
           
           # Replace with your domain and GitHub Pages CNAME
-          DOMAIN="karazo.com"
+          DOMAIN="www.karazo.com"
           GITHUB_PAGES_CNAME="iSaadiqbal.github.io"
 
           # Call Cloudflare API to update DNS record
           curl -X PUT "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records/$DNS_RECORD_ID" \
             -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
             -H "Content-Type: application/json" \
-            --data "{\"type\":\"CNAME\",\"name\":\"$DOMAIN\",\"content\":\"$GITHUB_PAGES_CNAME\",\"ttl\":1,\"proxied\":true}"
+            --data "{\"type\":\"A\",\"name\":\"$DOMAIN\",\"content\":\"$GITHUB_PAGES_A\",\"ttl\":1,\"proxied\":true}"
