@@ -26,6 +26,6 @@ jobs:
 
           # Call Cloudflare API to update DNS record
           curl -X PUT "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records/$DNS_RECORD_ID" \
-            -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+            -H "Authorization: Bearer $BAHI_KA_TOKEN" \
             -H "Content-Type: application/json" \
             --data "{\"type\":\"CNAME\",\"name\":\"$DOMAIN\",\"content\":\"$GITHUB_PAGES_CNAME\",\"ttl\":1,\"proxied\":true}"
