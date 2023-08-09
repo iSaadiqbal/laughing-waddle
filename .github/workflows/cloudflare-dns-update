@@ -22,7 +22,7 @@ jobs:
           
           # Replace with your domain and GitHub Pages CNAME
           DOMAIN="www.karazo.com"
-          GITHUB_PAGES_CNAME="iSaadiqbal.github.io"
+          GITHUB_PAGES_CNAME="isaadiqbal.github.io/laughing-waddle/"
 
           # Call Cloudflare API to update DNS record
           curl -X PUT "https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records/$DNS_RECORD_ID" \
