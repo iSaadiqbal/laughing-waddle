@@ -14,7 +14,7 @@ jobs:
 
       - name: Update Cloudflare DNS
         env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.KARAZO_DNS_TOKEN }}
         run: |
           # Replace with your Cloudflare Zone ID and DNS record ID
           ZONE_ID="028fe144f0673d1b4206a2022a01e268"
