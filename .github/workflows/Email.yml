@@ -1,4 +1,4 @@
-name: Send Website Preview via Email
+name: Send Website Link via Email
 
 on:
   push:
@@ -10,20 +10,6 @@ jobs:
   send_email:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: 14
-
-      - name: Read HTML File
-        id: read-html
-        run: |
-          html_content=$(cat index.html | base64 -w 0)
-          echo "::set-output name=content::$html_content"
-
       - name: Send Email
         uses: dawidd6/action-send-mail@v3
         with:
@@ -38,7 +24,8 @@ jobs:
             <html>
             <body>
               <p>Preview of Your Website:</p>
-              <iframe srcdoc="${{ steps.read-html.outputs.content }}" frameborder="0" width="100%" height="500"></iframe>
+              <p>Click the link below to view your website:</p>
+              <a href="https://your-website-url.com">Visit Your Website</a>
             </body>
             </html>
           contentType: text/html
