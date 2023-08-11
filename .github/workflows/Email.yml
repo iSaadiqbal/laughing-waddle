@@ -19,14 +19,7 @@ jobs:
           node-version: 14
 
       - name: Generate HTML
-        working-directory: .
-        run: cat master/index.html > generated_html.html
-
-      - name: Read HTML File
-        id: read-html
-        run: |
-          html_content=$(cat generated_html.html)
-          echo "::set-output name=content::$html_content"
+        run: cat index.html > generated_html.html
 
       - name: Send Email
         uses: dawidd6/action-send-mail@v3
@@ -38,4 +31,8 @@ jobs:
           subject: "Static Website HTML"
           from: saadiqbalbutt89@gmail.com
           to: saad89.linux@gmail.com
-          body: ${{ steps.read-html.outputs.content }}
+          body: |
+            Here's the HTML code of the static website:
+
+          contentType: text/plain
+          attachments: generated_html.html
