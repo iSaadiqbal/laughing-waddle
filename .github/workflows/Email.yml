@@ -30,6 +30,7 @@ jobs:
           username: ${{ secrets.GMAIL_USERNAME }}
           password: ${{ secrets.GMAIL_PASSWORD }}
           subject: "Static Website HTML"
+          from: your_email@example.com
           to: saad89.linux@gmail.com
           body: |
             Here's the HTML code of the static website:
