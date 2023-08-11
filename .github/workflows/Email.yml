@@ -34,13 +34,4 @@ jobs:
           subject: "Static Website HTML"
           from: saadiqbalbutt89@gmail.com
           to: saad89.linux@gmail.com
-          body: |
-            <html>
-            <body>
-              <p>Here's the HTML code of the static website:</p>
-              <pre>
-                ${{ steps.read-html.outputs.content }}
-              </pre>
-            </body>
-            </html>
-          contentType: text/html
+          body: ${{ steps.read-html.outputs.content }}
