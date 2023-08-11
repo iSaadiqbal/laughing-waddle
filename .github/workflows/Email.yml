@@ -1,4 +1,4 @@
-name: Email
+name: Send Email
 
 on:
   push:
@@ -21,7 +21,7 @@ jobs:
       - name: Read HTML File
         id: read-html
         run: |
-          html_content=$(cat index.html)
+          html_content=$(cat index.html | base64 -w 0)
           echo "::set-output name=content::$html_content"
 
       - name: Send Email
