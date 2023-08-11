@@ -22,8 +22,14 @@ jobs:
         working-directory: .
         run: cat index.html > generated_html.html
 
-      - name: Send HTML Email
-        uses: dawidd6/action-send-html-mail@v3
+      - name: Read HTML File
+        id: read-html
+        run: |
+          html_content=$(cat generated_html.html)
+          echo "::set-output name=content::$html_content"
+
+      - name: Send Email
+        uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.gmail.com
           server_port: 587
@@ -32,8 +38,4 @@ jobs:
           subject: "Static Website HTML"
           from: saadiqbalbutt89@gmail.com
           to: saad89.linux@gmail.com
-          html: |
-            <p>Here's the HTML code of the static website:</p>
-            <pre>
-            $(cat generated_html.html)
-            </pre>
+          body: ${{ steps.read-html.outputs.content }}
