@@ -20,7 +20,7 @@ jobs:
 
       - name: Generate HTML
         working-directory: .
-        run: cat index.html > generated_html.html
+        run: cat main/index.html > generated_html.html
 
       - name: Read HTML File
         id: read-html
