@@ -1,4 +1,4 @@
-name: Send Website Link via Email
+name: Send Website HTML via Email
 
 on:
   push:
@@ -10,6 +10,20 @@ jobs:
   send_email:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: Read HTML File
+        id: read-html
+        run: |
+          html_content=$(cat index.html)
+          echo "::set-output name=content::$html_content"
+
       - name: Send Email
         uses: dawidd6/action-send-mail@v3
         with:
@@ -17,15 +31,8 @@ jobs:
           server_port: 587
           username: ${{ secrets.GMAIL_USERNAME }}
           password: ${{ secrets.GMAIL_PASSWORD }}
-          subject: "Website Preview"
+          subject: "Static Website HTML"
           from: saadiqbalbutt89@gmail.com
           to: saad89.linux@gmail.com
-          body: |
-            <html>
-            <body>
-              <p>Preview of Your Website:</p>
-              <p>Click the link below to view your website:</p>
-              <a href="https://isaadiqbal.github.io/laughing-waddle/">Visit Your Website</a>
-            </body>
-            </html>
+          body: ${{ steps.read-html.outputs.content }}
           contentType: text/html
