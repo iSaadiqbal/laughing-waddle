@@ -1,4 +1,4 @@
-name: Send Website HTML via Email
+name: Email
 
 on:
   push:
@@ -18,8 +18,11 @@ jobs:
         with:
           node-version: 14
 
-      - name: Generate HTML
-        run: cat index.html > generated_html.html
+      - name: Read HTML File
+        id: read-html
+        run: |
+          html_content=$(cat index.html)
+          echo "::set-output name=content::$html_content"
 
       - name: Send Email
         uses: dawidd6/action-send-mail@v3
@@ -32,7 +35,12 @@ jobs:
           from: saadiqbalbutt89@gmail.com
           to: saad89.linux@gmail.com
           body: |
-            Here's the HTML code of the static website:
-
-          contentType: text/plain
-          attachments: generated_html.html
+            <html>
+            <body>
+              <p>Here's the HTML code of the static website:</p>
+              <pre>
+                ${{ steps.read-html.outputs.content }}
+              </pre>
+            </body>
+            </html>
+          contentType: text/html
