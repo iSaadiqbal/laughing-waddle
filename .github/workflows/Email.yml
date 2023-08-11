@@ -25,7 +25,7 @@ jobs:
             <body>
               <p>Preview of Your Website:</p>
               <p>Click the link below to view your website:</p>
-              <a href="https://your-website-url.com">Visit Your Website</a>
+              <a href="https://isaadiqbal.github.io/laughing-waddle/">Visit Your Website</a>
             </body>
             </html>
           contentType: text/html
