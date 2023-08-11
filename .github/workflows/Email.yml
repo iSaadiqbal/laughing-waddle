@@ -18,11 +18,9 @@ jobs:
         with:
           node-version: 14
 
-      - name: Install Dependencies
-        run: npm install
-
       - name: Generate HTML
-        run: npm run generate-html
+        working-directory: .
+        run: echo "<!DOCTYPE html><html><head><title>Your Website</title></head><body><h1>Hello World!</h1></body></html>" > generated_html.html
 
       - name: Send Email
         uses: dawidd6/action-send-mail@v3
