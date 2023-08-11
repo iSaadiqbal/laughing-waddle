@@ -3,7 +3,7 @@ name: Send Website HTML via Email
 on:
   push:
     branches:
-      - main
+      - master
   workflow_dispatch:
 
 jobs:
@@ -20,7 +20,7 @@ jobs:
 
       - name: Generate HTML
         working-directory: .
-        run: cat main/index.html > generated_html.html
+        run: cat master/index.html > generated_html.html
 
       - name: Read HTML File
         id: read-html
