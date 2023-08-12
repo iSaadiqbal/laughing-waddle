@@ -17,12 +17,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 14
-          
-      - name: Read HTML File
-        run: |
-          html_content=$(cat index.html)
-          echo "::set-output name=content::$html_content"
-        id: read-html       
 
       - name: Send Email
         uses: dawidd6/action-send-mail@v3
@@ -34,20 +28,4 @@ jobs:
           subject: "Static Website HTML"
           from: saadiqbalbutt89@gmail.com
           to: saad89.linux@gmail.com
-          body: |
-            <html>
-            <head>
-              <title>HTML Email with Attachment</title>
-            </head>
-            <body>
-              <h1>Hello, World!</h1>
-              <p>This is an example of an HTML email with an attachment.</p>
-              <p>HTML Content from File:</p>
-              <pre>
-                ${{ steps.read-html.outputs.content }}
-              </pre>
-            </body>
-            </html>
-          contentType: text/html
-          attachments: |
-            generated_html.html;base64,${{ steps.read-html.outputs.content | base64 }}
+          html:  $(cat index.html)
