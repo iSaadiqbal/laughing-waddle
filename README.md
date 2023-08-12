@@ -37,7 +37,17 @@ index.html is the website in the root of main branch.
 
 
 
-3.  trying with base 64 encoding
+3. - name: Generate HTML
+        working-directory: .
+        run: cat index.html > generated_html.html
+
+   ** in email body **
+
+   $(cat generated_html.html)
+
+
+
+4.  trying with base 64 encoding
  - name: Read HTML File
         id: read-html
         run: |
@@ -47,7 +57,7 @@ index.html is the website in the root of main branch.
       <iframe srcdoc="${{ steps.read-html.outputs.content }}" frameborder="0" width="100%" height="500"></iframe>
 
 
-4.   
+5.   
       - name: Read HTML File
         id: read-html
         run: |
@@ -57,6 +67,8 @@ index.html is the website in the root of main branch.
 
         **in the email body **
 body: ${{ steps.read-html.outputs.content }}
+
+
 
         
 
