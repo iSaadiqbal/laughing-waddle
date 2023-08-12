@@ -19,23 +19,22 @@ jobs:
           node-version: 14
 
       - name: Read HTML File
+        id: read-html
         run: |
           html_content=$(cat index.html)
           echo "::set-output name=content::$html_content"
-        id: read-html
 
       - name: Send Email
-        uses: dawidd6/action-send-mail@v3
+        uses: appleboy/smtp-action@master
         with:
-          server_address: smtp.gmail.com
-          server_port: 587
+          server: smtp.gmail.com
+          port: 587
           username: ${{ secrets.GMAIL_USERNAME }}
           password: ${{ secrets.GMAIL_PASSWORD }}
-          subject: "Static Website HTML"
           from: saadiqbalbutt89@gmail.com
           to: saad89.linux@gmail.com
+          subject: "Static Website HTML"
           body: |
             Here's the HTML code of the static website:
 
             ${{ steps.read-html.outputs.content }}
-          contentType: text/plain
