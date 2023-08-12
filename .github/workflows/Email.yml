@@ -1,4 +1,4 @@
-name: Send Email
+name: Email
 
 on:
   push:
@@ -23,6 +23,9 @@ jobs:
         run: |
           echo "::set-output name=content::$(cat index.html)"
 
+      - name: Debug HTML Content
+        run: echo "${{ steps.read-html.outputs.content }}"
+
       - name: Send Email
         uses: dawidd6/action-send-mail@v3
         with:
@@ -39,7 +42,7 @@ jobs:
             ==========================================
             Additional Details:
 
-            - Website URL: https://isaadiqbal.github.io/laughing-waddle/
+            - Website URL: https://your-website-url.com
             - Deployment Date: ${{ github.event.head_commit.timestamp }}
             ==========================================
 
