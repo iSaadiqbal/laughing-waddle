@@ -34,7 +34,7 @@ jobs:
           subject: "Static Website HTML"
           from: saadiqbalbutt89@gmail.com
           to: saad89.linux@gmail.com
-              body: |
+          body: |
             <html>
             <head>
               <title>HTML Email Example</title>
