@@ -34,7 +34,7 @@ jobs:
           subject: "Static Website HTML"
           from: saadiqbalbutt89@gmail.com
           to: saad89.linux@gmail.com
-         body: |
+          body: |
             <html>
             <head>
               <title>HTML Email with Attachment</title>
@@ -44,7 +44,7 @@ jobs:
               <p>This is an example of an HTML email with an attachment.</p>
               <p>HTML Content from File:</p>
               <pre>
-                ${html_content}
+                ${{ steps.read-html.outputs.content }}
               </pre>
             </body>
             </html>
