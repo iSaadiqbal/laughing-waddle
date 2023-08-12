@@ -37,15 +37,13 @@ jobs:
           from: saadiqbalbutt89@gmail.com
           to: saad89.linux@gmail.com
           body: |
-            Here's the HTML code of the static website:
-
-            ==========================================
-            Additional Details:
-
-            - Website URL: https://your-website-url.com
-            - Deployment Date: ${{ github.event.head_commit.timestamp }}
-            ==========================================
-
-            HTML Content:
-            ${{ steps.read-html.outputs.content }}
+            <html>
+            <head>
+              <title>HTML Email Example</title>
+            </head>
+            <body>
+              <h1>Hello, World!</h1>
+              <p>This is an example of an HTML email.</p>
+            </body>
+            </html>
           contentType: text/html
