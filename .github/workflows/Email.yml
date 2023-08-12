@@ -1,4 +1,4 @@
-name: Send Website HTML via Email
+name: Send Email
 
 on:
   push:
@@ -19,10 +19,9 @@ jobs:
           node-version: 14
 
       - name: Read HTML File
-        run: |
-          html_content=$(cat index.html)
-          echo "::set-output name=content::$html_content"
         id: read-html
+        run: |
+          echo "::set-output name=content::$(cat index.html)"
 
       - name: Send Email
         uses: dawidd6/action-send-mail@v3
@@ -36,5 +35,14 @@ jobs:
           to: saad89.linux@gmail.com
           body: |
             Here's the HTML code of the static website:
+
+            ==========================================
+            Additional Details:
+
+            - Website URL: https://isaadiqbal.github.io/laughing-waddle/
+            - Deployment Date: ${{ github.event.head_commit.timestamp }}
+            ==========================================
+
+            HTML Content:
             ${{ steps.read-html.outputs.content }}
           contentType: text/html
