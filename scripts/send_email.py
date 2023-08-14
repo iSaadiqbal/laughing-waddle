@@ -4,7 +4,7 @@ from email.mime.text import MIMEText
 
 # Email configuration
 sender_email = "saadiqbalbutt89@gmail.com"
-receiver_email = "saad89.linux@gmail.com"
+receiver_email = "farmann@gmail.com"
 subject = "Static Website HTML"
 
 # Read HTML content from index.html
