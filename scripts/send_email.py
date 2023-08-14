@@ -5,10 +5,13 @@ from email.mime.text import MIMEText
 sender_email = "saadiqbalbutt89@gmail.com"
 receiver_email = "saad89.linux@gmail.com"
 subject = "Static Website HTML"
-message = open("index.html").read()
+
+# Read HTML content from index.html
+with open("index.html", "r") as html_file:
+    html_content = html_file.read()
 
 # Create the MIMEText object
-msg = MIMEText(message, "html")
+msg = MIMEText(html_content, "plain")
 msg["Subject"] = subject
 msg["From"] = sender_email
 msg["To"] = receiver_email
