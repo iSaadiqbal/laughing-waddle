@@ -18,6 +18,11 @@ jobs:
         with:
           node-version: 14
 
+      - name: Read HTML Content
+        id: read-html
+        run: |
+          echo "::set-output name=content::$(cat index.html)"
+
       - name: Send Email
         uses: dawidd6/action-send-mail@v3
         with:
@@ -28,4 +33,4 @@ jobs:
           subject: "Static Website HTML"
           from: saadiqbalbutt89@gmail.com
           to: saad89.linux@gmail.com
-          html:  $(cat index.html)
+          html: ${{ steps.read-html.outputs.content }}
