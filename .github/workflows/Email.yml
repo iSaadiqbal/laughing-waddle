@@ -24,13 +24,9 @@ jobs:
           echo "::set-output name=content::$(cat index.html)"
 
       - name: Send Email
-        uses: dawidd6/action-send-mail@v3
-        with:
-          server_address: smtp.gmail.com
-          server_port: 587
-          username: ${{ secrets.GMAIL_USERNAME }}
-          password: ${{ secrets.GMAIL_PASSWORD }}
-          subject: "Static Website HTML"
-          from: saadiqbalbutt89@gmail.com
-          to: saad89.linux@gmail.com
-          html: ${{ steps.read-html.outputs.content }}
+        run: |
+          echo "Subject: Static Website HTML"
+          echo "To: saad89.linux@gmail.com"
+          echo "Content-Type: text/html; charset=UTF-8"
+          echo ""
+          cat index.html
