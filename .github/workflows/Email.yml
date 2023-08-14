@@ -13,20 +13,11 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
         with:
-          node-version: 14
-
-      - name: Read HTML Content
-        id: read-html
-        run: |
-          echo "::set-output name=content::$(cat index.html)"
+          python-version: 3.x
 
       - name: Send Email
         run: |
-          echo "Subject: Static Website HTML"
-          echo "To: saad89.linux@gmail.com"
-          echo "Content-Type: text/html; charset=UTF-8"
-          echo ""
-          cat index.html
+          python scripts/send_email.py
