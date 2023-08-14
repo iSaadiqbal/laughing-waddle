@@ -1,4 +1,5 @@
 import smtplib
+from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 # Email configuration
@@ -10,11 +11,30 @@ subject = "Static Website HTML"
 with open("index.html", "r") as html_file:
     html_content = html_file.read()
 
+# Additional text
+additional_text = """
+Hello,
+
+Here's the HTML code of the website:
+
+---
+
+{}
+
+---
+
+Thank you,
+Your Name
+""".format(html_content)
+
 # Create the MIMEText object
-msg = MIMEText(html_content, "plain")
+msg = MIMEMultipart()
 msg["Subject"] = subject
 msg["From"] = sender_email
 msg["To"] = receiver_email
+
+# Attach additional text to the email body
+msg.attach(MIMEText(additional_text, "plain"))
 
 # Connect to the SMTP server and send the email
 with smtplib.SMTP("smtp.gmail.com", 587) as server:
