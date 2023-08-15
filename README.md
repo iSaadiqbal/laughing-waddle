@@ -78,7 +78,7 @@ from email.mime.text import MIMEText
 
 
 
-# My Email configuration 
+#My Email configuration 
 sender_email = "saadiqbalbutt89@gmail.com"
 receiver_email = "tayyubtahir87@gmail.com"
 subject = "Static Website HTML"
