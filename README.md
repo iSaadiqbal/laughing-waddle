@@ -109,18 +109,3 @@ and now i have the HTML code of the site below as text.
 Thank you,
 Saad
 """.format(html_content)
-
-# Create the MIMEText object
-msg = MIMEMultipart()
-msg["Subject"] = subject
-msg["From"] = sender_email
-msg["To"] = receiver_email
-
-# Attach additional text to the email body
-msg.attach(MIMEText(additional_text, "plain"))
-
-# Connect to the SMTP server and send the email
-with smtplib.SMTP("smtp.gmail.com", 587) as server:
-    server.starttls()
-    server.login(sender_email, "tfopioxgqjchiuuu") 
-    server.sendmail(sender_email, receiver_email, msg.as_string())
