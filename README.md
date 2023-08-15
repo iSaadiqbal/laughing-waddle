@@ -1,8 +1,8 @@
 # laughing-waddle
 
- #For email i used this code whoch i got from the Static Email workflow format in the Github
+##  For email i used this code whoch i got from the Static Email workflow format in the Github
  
-#   - name: Send Email
+   - name: Send Email
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.gmail.com
@@ -14,9 +14,7 @@
           to: saad89.linux@gmail.com
           body:
 
-
-      THIS works great 
-
+ THIS works great 
 
 
 
@@ -24,8 +22,8 @@ I created index.html in the master branch ( Repo root ) and used it as my websit
 adding HTML code of the website in the body of the EMAIL i tried different formats in the workflow yml file. 
 
   
-  
-  1. - name: Read HTML File
+
+#  1. - name: Read HTML File
         run: |
           html_content=$(cat index.html)
           echo "::set-output name=content::$html_content"
@@ -35,21 +33,18 @@ adding HTML code of the website in the body of the EMAIL i tried different forma
 
 
 
-2. 
 
-    - name: Generate HTML
+
+# 2.    - name: Generate HTML
         working-directory: .
         run: cat index.html > generated_html.html
-
-   ** in email body **
-
-   $(cat generated_html.html)
+    ** in email body **
+         $(cat generated_html.html)
 
 
 
-3.
 
-   trying with base 64 encoding
+# 3.   trying with base 64 encoding
     - name: Read HTML File
         id: read-html
         run: |
@@ -59,8 +54,7 @@ adding HTML code of the website in the body of the EMAIL i tried different forma
       <iframe srcdoc="${{ steps.read-html.outputs.content }}" frameborder="0" width="100%" height="500"></iframe>
 
 
-4.   
-    - name: Read HTML File
+# 4.       - name: Read HTML File
         id: read-html
         run: |
           html_content=$(cat index.html)
