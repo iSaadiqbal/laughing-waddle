@@ -1,4 +1,4 @@
-# laughing-waddle
+# laughing-waddle (Select the VIEW in CODE for better )
 
 #For email i used this code whoch i got from the Static Email workflow format in the Github
   
@@ -18,8 +18,13 @@
 
 
 
-I created index.html in the master branch ( Repo root ) and used it as my website AND for 
-adding HTML code of the website in the body of the EMAIL i tried different formats in the workflow yml file. 
+# I created index.html in the master branch ( Repo root ) and used it as my website AND for 
+# adding HTML code of the website in the body of the EMAIL i tried different formats in the workflow yml file. 
+
+
+
+
+
 
   
 
