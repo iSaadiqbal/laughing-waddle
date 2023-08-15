@@ -83,10 +83,10 @@ from email.mime.text import MIMEText
 
 
 
-#My Email configuration 
-sender_email = "saadiqbalbutt89@gmail.com"
-receiver_email = "tayyubtahir87@gmail.com"
-subject = "Static Website HTML"
+# My Email configuration 
+   sender_email = "saadiqbalbutt89@gmail.com"
+    receiver_email = "tayyubtahir87@gmail.com"
+     subject = "Static Website HTML"
 
 # Now opening the file contents and making it readable, this makes an object with the html content which is equal to
 # html_file(variable)and the read the that variable which has the content as well with ".read()" and it also converts it in a string as well
