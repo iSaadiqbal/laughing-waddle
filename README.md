@@ -88,13 +88,14 @@ sender_email = "saadiqbalbutt89@gmail.com"
 receiver_email = "tayyubtahir87@gmail.com"
 subject = "Static Website HTML"
 
-# Now opening the file contents and making it readable, this makes an object with the html content which is equal to html_file(variable)and the read the that variable which has the content as well with ".read()" and it also converts it in a string as well
+# Now opening the file contents and making it readable, this makes an object with the html content which is equal to
+# html_file(variable)and the read the that variable which has the content as well with ".read()" and it also converts it in a string as well
 with open("index.html", "r") as html_file:
   html_content = html_file.read()
 
-# Additional text
+# Additional text has a format and a style that we have to follow - 
 additional_text = """
-Hello Famrman bahi, I am using python file to add HTMl code in the body of the email. I tried with many workflow formatts from the
+Hello, I am using python file to add HTMl code in the body of the email. I tried with many workflow formatts from the
 github none of them worked with the HTML i was not able to add it in the email body.  so i found a way to do it through the python code.
 then i learned how to make my .py file work with the yaml file. 
 and now i have the HTML code of the site below as text.
@@ -121,5 +122,5 @@ msg.attach(MIMEText(additional_text, "plain"))
 # Connect to the SMTP server and send the email
 with smtplib.SMTP("smtp.gmail.com", 587) as server:
     server.starttls()
-    server.login(sender_email, "tfopioxgqjchiuuu")  # Use an app-specific password or OAuth token
+    server.login(sender_email, "tfopioxgqjchiuuu") 
     server.sendmail(sender_email, receiver_email, msg.as_string())
