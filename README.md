@@ -1,10 +1,8 @@
 # laughing-waddle
 
-
+ #For email i used this code whoch i got from the Static Email workflow format in the Github
  
- 
- for email 
-    - name: Send Email
+   - name: Send Email
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.gmail.com
@@ -14,14 +12,17 @@
           subject: "Static Website HTML"
           from: saadiqbalbutt89@gmail.com
           to: saad89.linux@gmail.com
-          body: 
- THIS works great 
+          body:
 
 
-index.html is the website in the root of main branch. 
+      THIS works great 
 
 
-  trying different methods for showing index.html content in email body
+
+
+I created index.html in the master branch ( Repo root ) and used it as my website AND for 
+adding HTML code of the website in the body of the EMAIL i tried different formats in the workflow yml file. 
+
   
   
   1. - name: Read HTML File
@@ -34,11 +35,7 @@ index.html is the website in the root of main branch.
 
 
 
-
-2.     $(cat index.html)  in the body
-
-
-3. 
+2. 
 
     - name: Generate HTML
         working-directory: .
@@ -48,10 +45,11 @@ index.html is the website in the root of main branch.
 
    $(cat generated_html.html)
 
-     
 
 
-4.  trying with base 64 encoding
+3.
+
+   trying with base 64 encoding
     - name: Read HTML File
         id: read-html
         run: |
@@ -61,7 +59,7 @@ index.html is the website in the root of main branch.
       <iframe srcdoc="${{ steps.read-html.outputs.content }}" frameborder="0" width="100%" height="500"></iframe>
 
 
-5.   
+4.   
     - name: Read HTML File
         id: read-html
         run: |
@@ -72,8 +70,9 @@ index.html is the website in the root of main branch.
         **in the email body **
         body: ${{ steps.read-html.outputs.content }}
 
+none of them worked!!!
 
 
-        
+Then i tried adding the HTML code of the webiste in the email body with python, i added the .py file in the repo (/scripts/send_email.py)
 
        
