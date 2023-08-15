@@ -2,7 +2,7 @@
 
  #For email i used this code whoch i got from the Static Email workflow format in the Github
  
-   - name: Send Email
+#   - name: Send Email
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.gmail.com
