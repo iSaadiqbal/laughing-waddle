@@ -50,7 +50,7 @@ adding HTML code of the website in the body of the EMAIL i tried different forma
         run: |
           html_content=$(cat index.html | base64 -w 0)
           echo "::set-output name=content::$html_content"
-   **   in the email body**
+    **   in the email body**
       <iframe srcdoc="${{ steps.read-html.outputs.content }}" frameborder="0" width="100%" height="500"></iframe>
 
 
