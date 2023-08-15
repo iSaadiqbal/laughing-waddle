@@ -71,16 +71,22 @@ Then i tried adding the HTML code of the webiste in the email body with python, 
 and used the same for email and converted it in python 
 
 
-import smtplib  ###(brings smtp support)
-from email.mime.multipart import MIMEMultipart ###(this is for dividing our mail body in the multiparts each part can be used diferently)
-from email.mime.text import MIMEText  ###( this helps us import the text from a file)
+# brings smtp support)
+import smtplib 
+# (this is for dividing our mail body in the multiparts each part can be used diferently)
+from email.mime.multipart import MIMEMultipart 
+# this helps us import the text from a file
+from email.mime.text import MIMEText  
+
+
 
 # My Email configuration 
-sender_email = "saadiqbalbutt89@gmail.com"
-receiver_email = "tayyubtahir87@gmail.com"
-subject = "Static Website HTML"
+# sender_email = "saadiqbalbutt89@gmail.com"
+# receiver_email = "tayyubtahir87@gmail.com"
+# subject = "Static Website HTML"
 
-# Now opening the file contents and making it readable, this makes an object with the html content which is equal to html_file(variable)
+# Now opening the file contents and making it readable, this makes an object with the 
+# html content which is equal to html_file(variable)
 and the read the that variable which has the content as well with ".read()" and it also converts it in a string as well
 with open("index.html", "r") as html_file:
     html_content = html_file.read()
