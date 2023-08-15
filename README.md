@@ -45,7 +45,6 @@ index.html is the website in the root of main branch.
 
    $(cat generated_html.html)
 
-body: ${{ steps.read-html.outputs.content }}
 
 
 
@@ -60,7 +59,7 @@ body: ${{ steps.read-html.outputs.content }}
           echo "::set-output name=content::$html_content"
 
 **in email body **
-
+${{ steps.read-html.outputs.content }}
 
 
         
