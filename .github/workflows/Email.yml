@@ -3,7 +3,18 @@ name: Send Email with Website Content
 on:
   push:
     branches:
-      - my-first-branch  # Change to your repository's main branch name
+      - my-first-branch
+  workflow_dispatch:
+    inputs:
+      recipient_email:
+        description: 'Recipient Email Address'
+        required: true
+      subject:
+        description: 'Email Subject'
+        required: true
+      body:
+        description: 'Email Body'
+        required: true
 
 jobs:
   send_email:
@@ -18,13 +29,10 @@ jobs:
         with:
           python-version: 3.x  # Choose a Python version
 
-      - name: Install Dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install smtplib
-
       - name: Run Python Script
         run: python path/to/your/script/send_email.py  # Replace with the actual path to your Python script
         env:
-          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_PASSWORD }}
-
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          RECIPIENT_EMAIL: ${{ github.event.inputs.recipient_email }}
+          SUBJECT: ${{ github.event.inputs.subject }}
+          BODY: ${{ github.event.inputs.body }}
