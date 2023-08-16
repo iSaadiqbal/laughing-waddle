@@ -28,13 +28,13 @@ def send_html_email():
         smtp_server = 'smtp.gmail.com'
         smtp_port = 587
         
-        email_password = os.environ.get('tfopioxgqjchiuuu')
+        email_password = os.environ.get('slmoutqfqdwmbzui')
         if email_password is None:
             raise ValueError("GMAIL_APP_PASSWORD environment variable not set")
         
         with smtplib.SMTP(smtp_server, smtp_port) as server:
             server.starttls()
-            server.login(sender_email, email_password)
+            server.login(sender_email, slmoutqfqdwmbzui)
             server.sendmail(sender_email, recipient_email, msg.as_string())
         
         print("Email sent successfully!")
