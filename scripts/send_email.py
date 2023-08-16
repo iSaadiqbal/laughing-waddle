@@ -22,13 +22,14 @@ def send_email():
         msg['Subject'] = subject
 
         # Set the email body
-        body = f"Bonsoir,\n\nPlease check out my website: {website_link}\n\nBest regards,\KING KONG"
+        body = f"Hello,\n\nPlease check out my website: {website_link}\n\nBest regards,\nYour Name"
 
         # Attach the body to the message
         msg.attach(MIMEText(body, 'plain'))
 
         # Connect to the SMTP server and send the email
         with smtplib.SMTP(smtp_server, smtp_port) as server:
+            server.ehlo()
             server.starttls()
             server.login(sender_email, email_password)
             server.sendmail(sender_email, recipient_email, msg.as_string())
