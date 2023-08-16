@@ -1,4 +1,4 @@
-name: Send Email with Website Content
+name: Send Email
 
 on:
   push:
