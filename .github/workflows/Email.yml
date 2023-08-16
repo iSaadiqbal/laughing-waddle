@@ -1,22 +1,28 @@
-name: Email
+name: Send Email
 
 on:
   push:
     branches:
-      - master
-  workflow_dispatch:
+      - main
 
 jobs:
-  send_email:
+  send-email:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout Repository
+      - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'  # Specify Node.js version 16
 
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.x
+          python-version: '3.x'
+
 
       - name: Send Email
         run: |
