@@ -2,43 +2,32 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
-# Email configuration
-sender_email = "saadiqbalbutt89@gmail.com"
-receiver_email = "saad89.linux@gmail.com"
-subject = "Static Website HTML"
-
-# Read HTML content from index.html
-with open("index.html", "r") as html_file:
-    html_content = html_file.read()
-
-# Additional text
-additional_text = """
-Hello Famrman bahi, I am using python file to add HTMl code in the body of the email. I tried with many workflow formatts from the
-github none of them worked with the HTML i was not able to add it in the email body.  so i found a way to do it through the python code.
-then i learned how to make my .py file work with the yaml file. 
-and now i have the HTML code of the site below as text.
-
----
-
-{}
-
----
-
-Thank you,
-Saad
-""".format(html_content)
-
-# Create the MIMEText object
-msg = MIMEMultipart()
-msg["Subject"] = subject
-msg["From"] = sender_email
-msg["To"] = receiver_email
-
-# Attach additional text to the email body
-msg.attach(MIMEText(additional_text, "plain"))
-
-# Connect to the SMTP server and send the email
-with smtplib.SMTP("smtp.gmail.com", 587) as server:
+def send_html_email():
+    # Create a message object
+    msg = MIMEMultipart()
+    
+    # Set email details
+    sender_email = 'saadiqbalbutt89@gmail.com'
+    recipient_email = 'saad89.linux@gmail.com'
+    email_password = 'wuyfxxubulbosjab'
+    
+    msg['From'] = sender_email
+    msg['To'] = recipient_email
+    msg['Subject'] = 'HTML Email Subject'
+    
+    # Create the HTML content
+    website_link = '<a href="https://isaadiqbal.github.io/laughing-waddle/">Visit our website</a>'
+    additional_text = 'Hello, this is an HTML email with a link to our website!'
+    html_content = f"<html><body><p>{additional_text}</p><p>{https://isaadiqbal.github.io/laughing-waddle/}</p></body></html>"
+    
+    # Attach the HTML content to the message
+    msg.attach(MIMEText(html_content, 'html'))
+    
+    # Connect to the SMTP server and send the email
+    server = smtplib.SMTP('smtp.example.com', 587)
     server.starttls()
-    server.login(sender_email, "tfopioxgqjchiuuu")  # Use an app-specific password or OAuth token
-    server.sendmail(sender_email, receiver_email, msg.as_string())
+    server.login(sender_email, email_password)
+    server.sendmail(sender_email, recipient_email, msg.as_string())
+    server.quit()
+
+send_html_email()
