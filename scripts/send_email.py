@@ -18,7 +18,6 @@ def send_html_email():
     # Create the HTML content
     website_link = '<a href="https://isaadiqbal.github.io/laughing-waddle/">Visit our website</a>'
     additional_text = 'Hello, this is an HTML email with a link to our website!'
-    #html_content = f"<html><body><p>{additional_text}</p><p>{https://isaadiqbal.github.io/laughing-waddle/}</p></body></html>"
     html_content = f"<html><body><p>{additional_text}</p><p><a href='https://isaadiqbal.github.io/laughing-waddle/'>Visit our website</a></p></body></html>"
 
     
