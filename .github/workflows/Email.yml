@@ -3,7 +3,7 @@ name: Send Email with Website Content
 on:
   push:
     branches:
-      - main  # Change to your repository's main branch name
+      - my-first-branch  # Change to your repository's main branch name
 
 jobs:
   send_email:
