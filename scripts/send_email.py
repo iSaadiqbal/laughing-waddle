@@ -25,7 +25,7 @@ def send_html_email():
     msg.attach(MIMEText(html_content, 'html'))
     
     # Connect to the SMTP server and send the email
-    server = smtplib.SMTP('smtp.example.com', 587)
+    server = smtplib.SMTP('smtp.google.com', 587)
     server.starttls()
     server.login(sender_email, email_password)
     server.sendmail(sender_email, recipient_email, msg.as_string())
