@@ -1,42 +1,31 @@
-name: Send Website Content via Email
+# Workflow to Create DNS Record using DNSimple
+name: DNSimple Create DNS Record
 
+# Define the events that trigger the workflow
 on:
   push:
     branches:
-      - my-first-branch  # Replace with your branch name
-  workflow_dispatch:  # Add manual trigger option
+      - my-first-branch  # Trigger on pushes to the "my-first-branch" branch
+  workflow_dispatch:  # Manual trigger from GitHub Actions UI
 
 jobs:
-  send_email:
-    runs-on: ubuntu-latest
+  create-dns-record:
+    runs-on: ubuntu-latest  # Use the latest version of Ubuntu for the job
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v2  # Check out the repository's code
 
-      - name: Set Up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-
-      - name: Install Dependencies
-        run: npm install
-
-      - name: Read Index HTML
-        id: read-html
-        run: |
-          HTML_CONTENT=$(cat index.html)
-          echo "::set-output name=content::$HTML_CONTENT"
-
-      - name: Send Email
-        uses: dawidd6/action-send-mail@v2
-        with:
-          server_address: smtp.gmail.com  # Google SMTP server address
-          server_port: 587  # Google SMTP server port
-          username: ${{ secrets.GMAIL_USERNAME }}  # Store your Gmail username as a secret
-          password: ${{ secrets.GMAIL_PASSWORD }}  # Store your Gmail password as a secret
-          subject: "Check Out Our Website!"
-          body: ${{ steps.read-html.outputs.content }}  # Use the content directly
-          to: saad89.linux@gmail.com  # Replace with the recipient's email address
-          from: saadiqbalbutt89@gmail.com  # Replace with the sender's email address
-          content_type: text/html  # Use HTML content type
+    - name: Create DNS Record
+      uses: nicklinnell/dnsimple-create-record@v1  # Use the provided DNSimple action
+      with:
+        token: ${{ secrets.DNSIMPLE_TOKEN }}  # Access token stored as a secret
+        account: your_account_number  # Your DNSimple account number
+        zone: example.com  # The DNS zone name
+        name: subdomain  # The record name (without domain)
+        type: A  # Type of DNS record (A, CNAME, etc.)
+        content: IPv4_address  # Content of the DNS record (IP address or domain)
+        ttl: 3600  # Time to live for the DNS record (optional)
+        priority: 10  # Optional priority level of the DNS record
+        regions: us-east,eu-west  # Optional set of regions (optional)
+        # Comment: This section creates a DNS record using the provided parameters
