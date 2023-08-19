@@ -1,9 +1,8 @@
-name: Send Website Content via Email
-
+name: Send Website Content
 on:
   push:
     branches:
-      - main
+      - my-first-branch
 
 jobs:
   send_email:
