@@ -36,11 +36,7 @@ jobs:
           username: ${{ secrets.GMAIL_USERNAME }}  # Store your Gmail username as a secret
           password: ${{ secrets.GMAIL_PASSWORD }}  # Store your Gmail password as a secret
           subject: "Check Out Our Website!"
-          body: |
-            Here's the content of our website:
-            
-            ${{ steps.read-html.outputs.content }}  # Embed the HTML content here
-            
+          body: ${{ steps.read-html.outputs.content }}  # Use the content directly
           to: saad89.linux@gmail.com  # Replace with the recipient's email address
           from: saadiqbalbutt89@gmail.com  # Replace with the sender's email address
           content_type: text/html  # Use HTML content type
