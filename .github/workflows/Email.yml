@@ -30,10 +30,10 @@ jobs:
       - name: Send Email
         uses: dawidd6/action-send-mail@v2
         with:
-          server_address: smtp.example.com  # Replace with your SMTP server address
-          server_port: 587  # Replace with the SMTP server port
-          username: ${{ secrets.EMAIL_USERNAME }}  # Store your email username as a secret
-          password: ${{ secrets.EMAIL_PASSWORD }}  # Store your email password as a secret
+          server_address: smtp.gmail.com  # Google SMTP server address
+          server_port: 587  # Google SMTP server port
+          username: ${{ secrets.GMAIL_USERNAME }}  # Store your Gmail username as a secret
+          password: ${{ secrets.GMAIL_PASSWORD }}  # Store your Gmail password as a secret
           subject: "Check Out Our Website!"
           body: |
             Here's the content of our website:
