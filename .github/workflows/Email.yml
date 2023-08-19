@@ -22,10 +22,11 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Generate Email HTML
+      - name: Read Index HTML
+        id: read-html
         run: |
-          # Replace this with your command to generate HTML content from your website
-          echo "<html><body><h1>Welcome to My Website!</h1><p>This is a simple website hosted on my own server.</p></body></html>" > website_content.html
+          HTML_CONTENT=$(cat index.html)
+          echo "::set-output name=content::$HTML_CONTENT"
 
       - name: Send Email
         uses: dawidd6/action-send-mail@v2
@@ -38,8 +39,8 @@ jobs:
           body: |
             Here's the content of our website:
             
-            $(cat website_content.html)  # Embed the generated HTML content here
+            ${{ steps.read-html.outputs.content }}  # Embed the HTML content here
             
           to: saad89.linux@gmail.com  # Replace with the recipient's email address
           from: saadiqbalbutt89@gmail.com  # Replace with the sender's email address
-          content_type: text/plain
+          content_type: text/html  # Use HTML content type
