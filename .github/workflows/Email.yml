@@ -1,38 +1,43 @@
-name: Send Email
+name: Send Website Content via Email
 
 on:
   push:
     branches:
-      - my-first-branch
-  workflow_dispatch:
-    inputs:
-      recipient_email:
-        description: 'Recipient Email Address'
-        required: true
-      subject:
-        description: 'Email Subject'
-        required: true
-      body:
-        description: 'Email Body'
-        required: true
+      - main
 
 jobs:
   send_email:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
+      - name: Checkout Code
         uses: actions/checkout@v2
 
-      - name: Set up Python
-        uses: actions/setup-python@v2
+      - name: Set Up Node.js
+        uses: actions/setup-node@v2
         with:
-          python-version: 3.9  # Choose a Python version
+          node-version: '14'
 
-      - name: Run Python Script
-        run: python scripts/send_email.py  # Adjust the path to your script
-        env:
-          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_PASSWORD }}
-          RECIPIENT_EMAIL: ${{ github.event.inputs.recipient_email }}
-          SUBJECT: ${{ github.event.inputs.subject }}
-          BODY: ${{ github.event.inputs.body }}
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Generate Email HTML
+        run: |
+          # Replace this with your command to generate HTML content from your website
+          echo "<html><body><h1>Welcome to My Website!</h1><p>This is a simple website hosted on my own server.</p></body></html>" > website_content.html
+
+      - name: Send Email
+        uses: dawidd6/action-send-mail@v2
+        with:
+          server_address: smtp.example.com  # Replace with your SMTP server address
+          server_port: 587  # Replace with the SMTP server port
+          username: ${{ secrets.EMAIL_USERNAME }}  # Store your email username as a secret
+          password: ${{ secrets.EMAIL_PASSWORD }}  # Store your email password as a secret
+          subject: "Check Out Our Website!"
+          body: |
+            Here's the content of our website:
+            
+            $(cat website_content.html)  # Embed the generated HTML content here
+            
+          to: user@example.com  # Replace with the recipient's email address
+          from: sender@example.com  # Replace with the sender's email address
