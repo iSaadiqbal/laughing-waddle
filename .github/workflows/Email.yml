@@ -3,7 +3,8 @@ name: Send Website Content via Email
 on:
   push:
     branches:
-      - main
+      - my-first-branch  # Replace with your branch name
+  workflow_dispatch:  # Add manual trigger option
 
 jobs:
   send_email:
