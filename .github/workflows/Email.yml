@@ -1,8 +1,9 @@
-name: Send Website Content
+name: Send Website Content via Email
+
 on:
   push:
     branches:
-      - my-first-branch
+      - main
 
 jobs:
   send_email:
@@ -23,9 +24,7 @@ jobs:
       - name: Generate Email HTML
         run: |
           # Replace this with your command to generate HTML content from your website
-          echo "<html><body><h1>Welcome to My Website! OLALALALAL
-          OLALALALALA
-          OLALLALALA</h1><p>This is a simple website hosted on my own server.</p></body></html>" > website_content.html
+          echo "<html><body><h1>Welcome to My Website!</h1><p>This is a simple website hosted on my own server.</p></body></html>" > website_content.html
 
       - name: Send Email
         uses: dawidd6/action-send-mail@v2
@@ -42,3 +41,4 @@ jobs:
             
           to: saad89.linux@gmail.com  # Replace with the recipient's email address
           from: saadiqbalbutt89@gmail.com  # Replace with the sender's email address
+          content_type: text/plain
