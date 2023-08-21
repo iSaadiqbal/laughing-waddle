@@ -3,9 +3,9 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 # Gmail details
-sender_email = "your_email@gmail.com"
-receiver_email = "recipient_email@example.com"
-gmail_password = "your_gmail_password"  # Use an app-specific password or integrate with Gmail API
+sender_email = "saadiqbalbutt89@gmail.com"
+receiver_email = "saad89.linux@example.com"
+gmail_password = "slmoutqfqdwmbzui"  # Use an app-specific password or integrate with Gmail API
 
 subject = "Cloudflare DNS Update"
 message = """

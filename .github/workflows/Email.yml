@@ -1,4 +1,4 @@
-name: Cloudflare DNS with Curl
+name: Cloudflare DNS and Email
 
 on: [push]
 
@@ -9,16 +9,47 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
+    - name: Get Previous Comment Count
+      id: get-count
+      run: echo "::set-output name=count::$(cat count.txt)"
+
+    - name: Update Comment Count
+      id: increment-count
+      run: echo $(( ${get-count.outputs.count} + 1 )) > count.txt
+
+    - name: Check Existing DNS Record
+      id: check-dns
+      run: |
+        # Replace placeholders with your actual values
+        CF_API_TOKEN="HsoabgfSbNQVeHpg30hI14GOo8mZLixzk_7HhJY8"
+        ZONE_ID="38b42bfdb42dbe301b6b1a27b86ac939"
+        RECORD_NAME="saad.karazo.com"
+        RECORD_TYPE="CNAME"
+        RECORD_CONTENT="<<<IPv4_address>>>"
+
+        # Construct the API URL to fetch DNS records
+        API_URL="https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records?type=$RECORD_TYPE&name=$RECORD_NAME&content=$RECORD_CONTENT"
+
+        # Get DNS record details
+        DNS_RECORD=$(curl -s -H "Authorization: Bearer $CF_API_TOKEN" "$API_URL")
+
+        echo "::set-output name=dns-record::$DNS_RECORD"
+
+    - name: Send Email if DNS Exists
+      if: steps.check-dns.outputs.dns-record != '[]'
+      run: |
+        python python-script/send_email.py
+
     - name: Update Cloudflare DNS
       run: |
         # Replace placeholders with your actual values
-        CF_API_TOKEN="YOUR_CLOUDFLARE_API_TOKEN"
-        ZONE_ID="YOUR_ZONE_ID"
-        RECORD_NAME="subdomain"
-        RECORD_TYPE="A"
+        CF_API_TOKEN="HsoabgfSbNQVeHpg30hI14GOo8mZLixzk_7HhJY8"
+        ZONE_ID="38b42bfdb42dbe301b6b1a27b86ac939"
+        RECORD_NAME="saad.karazo.com"
+        RECORD_TYPE="CNAME"
         RECORD_CONTENT="IPv4_address"
         TTL=3600
-        DNS_COMMENT="Updating DNS record using GitHub Actions"
+        DNS_COMMENT="Updating DNS record using GitHub Actions ${{ steps.increment-count.outputs.stdout }}"
 
         # Construct the API URL
         API_URL="https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records"
@@ -35,4 +66,4 @@ jobs:
                "comments": "'$DNS_COMMENT'"
              }'
       env:
-        CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}  # Access token stored as a secret
+        CF_API_TOKEN: ${{ secrets.BAHI_KA_TOKEN }}  # Access token stored as a secret
