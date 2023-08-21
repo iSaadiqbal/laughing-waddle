@@ -4,7 +4,7 @@ from email.mime.text import MIMEText
 
 # Gmail details
 sender_email = "saadiqbalbutt89@gmail.com"
-receiver_email = "saad89.linux@example.com"
+receiver_email = "saad89.linux@gmail.com"
 gmail_password = "slmoutqfqdwmbzui"  # Use an app-specific password or integrate with Gmail API
 
 subject = "Cloudflare DNS Update"
