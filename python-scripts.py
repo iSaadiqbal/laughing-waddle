@@ -1,3 +1,4 @@
+import os
 import smtplib
 from email.mime.text import MIMEText
 
@@ -27,7 +28,9 @@ RECORD_TYPE = "CNAME"
 RECORD_CONTENT = "192.168.18.250"
 TTL = 3600
 DNS_COMMENT = "Domain verification record"
-COMMIT_COUNT = 5  # Replace with the actual commit count
+
+# Get the trigger count from the GitHub environment variable
+trigger_count = os.getenv("GITHUB_RUN_NUMBER")
 
 # Construct the DNS record details
 dns_details = f"""
@@ -40,13 +43,13 @@ DNS Comment: {DNS_COMMENT}
 """
 
 # Get the result of the DNS record update from the previous step
-dns_result = f"DNS record updated by workflow. Commit count: {COMMIT_COUNT}"
+dns_result = f"DNS record updated by workflow. Trigger count: {trigger_count}"
 
 # Combine the details and result
 email_body = f"{dns_details}\n\n{dns_result}"
 
-# Construct the email subject with commit count
-email_subject = f"DNS Record Update Result - Commit {COMMIT_COUNT}"
+# Construct the email subject with trigger count
+email_subject = f"DNS Record Update Result - Trigger {trigger_count}"
 
 # Call the send_email function with the subject and body
 send_email(email_subject, email_body)
