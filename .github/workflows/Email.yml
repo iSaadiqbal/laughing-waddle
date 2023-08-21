@@ -28,7 +28,7 @@ jobs:
         API_URL="https://api.cloudflare.com/client/v4/zones/38b42bfdb42dbe301b6b1a27b86ac939/dns_records"
         
         # Check if the DNS record already exists
-        EXISTING_DNS_RECORD=$(curl -s -H "Authorization: Bearer "HsoabgfSbNQVeHpg30hI14GOo8mZLixzk_7HhJY8" "$API_URL?type=$RECORD_TYPE&name=$RECORD_NAME&content=$RECORD_CONTENT")
+        EXISTING_DNS_RECORD=$(curl -s -H "Authorization: Bearer "$(CF_API_TOKEN)" "$API_URL?type=$RECORD_TYPE&name=$RECORD_NAME&content=$RECORD_CONTENT")
 
         # Create or update the DNS record
         if [[ "$EXISTING_DNS_RECORD" == "[]" ]]; then
