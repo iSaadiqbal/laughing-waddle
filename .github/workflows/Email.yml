@@ -1,4 +1,4 @@
-name: Cloudflare DNS and Email
+name: Cloudflare DNS
 
 on:
   push:
@@ -13,25 +13,6 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Get Previous Comment Count
-      id: get-count
-      run: |
-        echo "0" > count.txt
-        echo "::set-output name=count::0"
-
-    - name: Read Previous Comment Count
-      id: read-count
-      run: |
-        echo "::set-output name=count::$(cat count.txt)"
-
-    - name: Update Comment Count
-      id: increment-count
-      run: |
-        previous_count=$(echo "${{ steps.read-count.outputs.count }}")
-        new_count=$((previous_count + 1))
-        echo "${new_count}" > count.txt
-        echo "::set-output name=count::$new_count"
-
     - name: Check Existing DNS Record
       id: check-dns
       run: |
@@ -42,7 +23,7 @@ jobs:
       run: |
         python python-script/send_email.py
 
-    - name: Create or Update Cloudflare DNS
+    - name: Create Cloudflare DNS Record
       run: |
         # Replace placeholders with your actual values
         CF_API_TOKEN="HsoabgfSbNQVeHpg30hI14GOo8mZLixzk_7HhJY8"
@@ -51,12 +32,11 @@ jobs:
         RECORD_TYPE="A"
         RECORD_CONTENT="198.51.100.4"  # Replace with your actual IP address
         TTL=3600
-        DNS_COMMENT="Updating DNS record using GitHub Actions ${{ steps.increment-count.outputs.count }}"
 
         # Construct the API URL
         API_URL="https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records"
 
-        # Create or update the DNS record using curl
+        # Create the DNS record using curl
         curl -X POST "$API_URL" \
              -H "Authorization: Bearer $CF_API_TOKEN" \
              -H "Content-Type: application/json" \
@@ -64,8 +44,7 @@ jobs:
                "type": "'$RECORD_TYPE'",
                "name": "'$RECORD_NAME'",
                "content": "'$RECORD_CONTENT'",
-               "ttl": '$TTL',
-               "comments": "'$DNS_COMMENT'"
+               "ttl": '$TTL'
              }'
       env:
         CF_API_TOKEN: ${{ secrets.BAHI_KA_TOKEN }}  # Access token stored as a secret
