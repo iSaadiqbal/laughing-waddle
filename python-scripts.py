@@ -4,9 +4,9 @@ from email.mime.text import MIMEText
 import subprocess
 
 # Replace placeholders with your actual values
-gmail_email = "your@gmail.com"
-gmail_password = "your_gmail_app_password"  # Generate an app password from your Google Account settings
-to_email = "recipient@email.com"
+gmail_email = "saadiqbalbutt89@gmail.com"
+gmail_password = "slmoutqfqdwmbzui"  # Generate an app password from your Google Account settings
+to_email = "saad89@linux@email.com"
 
 # Run the jq command to format DNS records details
 dns_records = subprocess.run(["jq", ".", "dns_records.json"], capture_output=True, text=True).stdout
