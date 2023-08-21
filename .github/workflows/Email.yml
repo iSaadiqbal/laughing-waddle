@@ -21,7 +21,7 @@ jobs:
     - name: Send Email if DNS Exists
       if: steps.check-dns.outputs.dns-record != '[]'
       run: |
-        python python-script/send_email.py
+        python python-script/send_mail.py
 
     - name: Create Cloudflare DNS Record
       run: |
