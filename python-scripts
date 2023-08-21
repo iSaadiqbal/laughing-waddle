@@ -2,38 +2,39 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
-# Gmail details
-sender_email = "saadiqbalbutt89@gmail.com"
-receiver_email = "saad89.linux@gmail.com"
-gmail_password = "slmoutqfqdwmbzui"  # Use an app-specific password or integrate with Gmail API
+# Replace placeholders with your actual values
+sendgrid_username = "your_sendgrid_username"
+sendgrid_password = "your_sendgrid_password"
+from_email = "your@email.com"
+to_email = "recipient@email.com"
 
-subject = "Cloudflare DNS Update"
-message = """
-The Cloudflare DNS record has been updated.
+# Read DNS records from the file
+with open("dns_records.json", "r") as file:
+    dns_records = file.read()
 
-Details:
-- DNS Record: {dns_record}
-- Comment Count: {comment_count}
-- Workflow Run ID: {workflow_run_id}
-- Workflow Run URL: {workflow_run_url}
+# Create the email message
+message = MIMEMultipart()
+message["From"] = from_email
+message["To"] = to_email
+message["Subject"] = "DNS Records Information"
+
+# Format the DNS records for the email body
+body = f"""
+DNS Records Information:
+
+{dns_records}
 """
 
-# Replace placeholders with actual values
-dns_record = "{{ steps.check-dns.outputs.dns-record }}"
-comment_count = "{{ steps.increment-count.outputs.stdout }}"
-workflow_run_id = "{{ github.run_id }}"
-workflow_run_url = "{{ github.event.repository.html_url }}/actions/runs/${{ github.run_id }}"
+# Attach the email body
+message.attach(MIMEText(body, "plain"))
 
-message = message.format(dns_record=dns_record, comment_count=comment_count, workflow_run_id=workflow_run_id, workflow_run_url=workflow_run_url)
-
-msg = MIMEMultipart()
-msg["From"] = sender_email
-msg["To"] = receiver_email
-msg["Subject"] = subject
-msg.attach(MIMEText(message, "plain"))
-
-server = smtplib.SMTP("smtp.gmail.com", 587)
-server.starttls()
-server.login(sender_email, gmail_password)
-server.sendmail(sender_email, receiver_email, msg.as_string())
-server.quit()
+# Send the email using SendGrid
+try:
+    server = smtplib.SMTP("smtp.sendgrid.net", 587)
+    server.starttls()
+    server.login(sendgrid_username, sendgrid_password)
+    server.sendmail(from_email, to_email, message.as_string())
+    server.quit()
+    print("Email sent successfully!")
+except Exception as e:
+    print("An error occurred:", str(e))
