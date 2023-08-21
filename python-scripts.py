@@ -5,7 +5,7 @@ from email.mime.text import MIMEText
 # Replace placeholders with your actual values
 gmail_email = "saadiqbalbutt89@gmail.com"
 gmail_password = "slmoutqfqdwmbzui"  # Generate an app password from your Google Account settings
-to_email = "Saad89.linux@gmail.com@email.com"
+to_email = "Saad89.linux@gmail.com"
 
 # Read DNS records from the file
 with open("dns_records.json", "r") as file:
