@@ -3,7 +3,7 @@ name: Cloudflare DNS and Email
 on:
   push:
     branches:
-      - main  # Adjust the branch name as needed
+      - dns-create-practise  # Adjust the branch name as needed
   workflow_dispatch:
 
 jobs:
