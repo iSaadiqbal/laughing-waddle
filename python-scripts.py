@@ -1,15 +1,15 @@
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+import subprocess
 
 # Replace placeholders with your actual values
-gmail_email = "saadiqbalbutt89@gmail.com"
-gmail_password = "slmoutqfqdwmbzui"  # Generate an app password from your Google Account settings
-to_email = "Saad89.linux@gmail.com"
+gmail_email = "your@gmail.com"
+gmail_password = "your_gmail_app_password"  # Generate an app password from your Google Account settings
+to_email = "recipient@email.com"
 
-# Read DNS records from the file
-with open("dns_records.json", "r") as file:
-    dns_records = file.read()
+# Run the jq command to format DNS records details
+dns_records = subprocess.run(["jq", ".", "dns_records.json"], capture_output=True, text=True).stdout
 
 # Create the email message
 message = MIMEMultipart()
@@ -17,7 +17,7 @@ message["From"] = gmail_email
 message["To"] = to_email
 message["Subject"] = "DNS Records Information"
 
-# Format the DNS records for the email body
+# Attach the formatted DNS records to the email body
 body = f"""
 DNS Records Information:
 
