@@ -15,50 +15,48 @@ jobs:
 
     - name: Get Previous Comment Count
       id: get-count
-      run: echo "::set-output name=count::$(cat count.txt)"
+      run: |
+        echo "0" > count.txt
+        echo "::set-output name=count::0"
+
+    - name: Read Previous Comment Count
+      id: read-count
+      run: |
+        echo "::set-output name=count::$(cat count.txt)"
 
     - name: Update Comment Count
       id: increment-count
-      run: echo $(( {{ steps.get-count.outputs.count }} + 1 )) > count.txt
+      run: |
+        previous_count=$(echo "${{ steps.read-count.outputs.count }}")
+        new_count=$((previous_count + 1))
+        echo "${new_count}" > count.txt
+        echo "::set-output name=count::$new_count"
 
     - name: Check Existing DNS Record
       id: check-dns
       run: |
-        # Replace placeholders with your actual values
-        CF_API_TOKEN="HsoabgfSbNQVeHpg30hI14GOo8mZLixzk_7HhJY8"
-        ZONE_ID="38b42bfdb42dbe301b6b1a27b86ac939"
-        RECORD_NAME="saad.karazo.com"
-        RECORD_TYPE="CNAME"
-        RECORD_CONTENT="<<<IPv4_address>>>"
-
-        # Construct the API URL to fetch DNS records
-        API_URL="https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records?type=$RECORD_TYPE&name=$RECORD_NAME&content=$RECORD_CONTENT"
-
-        # Get DNS record details
-        DNS_RECORD=$(curl -s -H "Authorization: Bearer $CF_API_TOKEN" "$API_URL")
-
-        echo "::set-output name=dns-record::$DNS_RECORD"
+        # Your existing code for checking DNS record
 
     - name: Send Email if DNS Exists
       if: steps.check-dns.outputs.dns-record != '[]'
       run: |
         python python-script/send_email.py
 
-    - name: Update Cloudflare DNS
+    - name: Create or Update Cloudflare DNS
       run: |
         # Replace placeholders with your actual values
         CF_API_TOKEN="HsoabgfSbNQVeHpg30hI14GOo8mZLixzk_7HhJY8"
         ZONE_ID="38b42bfdb42dbe301b6b1a27b86ac939"
         RECORD_NAME="saad.karazo.com"
-        RECORD_TYPE="CNAME"
-        RECORD_CONTENT="IPv4_address"
+        RECORD_TYPE="A"
+        RECORD_CONTENT="198.51.100.4"  # Replace with your actual IP address
         TTL=3600
-        DNS_COMMENT="Updating DNS record using GitHub Actions ${{ steps.increment-count.outputs.stdout }}"
+        DNS_COMMENT="Updating DNS record using GitHub Actions ${{ steps.increment-count.outputs.count }}"
 
         # Construct the API URL
         API_URL="https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records"
-        
-        # Create or update the DNS record
+
+        # Create or update the DNS record using curl
         curl -X POST "$API_URL" \
              -H "Authorization: Bearer $CF_API_TOKEN" \
              -H "Content-Type: application/json" \
