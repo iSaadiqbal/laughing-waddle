@@ -35,13 +35,13 @@ jobs:
           curl -X POST "$API_URL" \
                -H "Authorization: Bearer $CF_API_TOKEN" \
                -H "Content-Type: application/json" \
-               --data '{
+               --data "{
                  "type": "'$RECORD_TYPE'",
                  "name": "'$RECORD_NAME'",
                  "content": "'$RECORD_CONTENT'",
                  "ttl": '$TTL',
                  "comment": "'$DNS_COMMENT'"
-               }'
+               }"
           echo "DNS record created."
         else
           DNS_RECORD_ID=$(echo "$EXISTING_DNS_RECORD" | jq -r '.result[0].id')
