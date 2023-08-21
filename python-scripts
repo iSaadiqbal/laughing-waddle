@@ -3,10 +3,9 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 # Replace placeholders with your actual values
-sendgrid_username = "your_sendgrid_username"
-sendgrid_password = "your_sendgrid_password"
-from_email = "your@email.com"
-to_email = "recipient@email.com"
+gmail_email = "saadiqbalbutt89@gmail.com"
+gmail_password = "slmoutqfqdwmbzui"  # Generate an app password from your Google Account settings
+to_email = "Saad89.linux@gmail.com@email.com"
 
 # Read DNS records from the file
 with open("dns_records.json", "r") as file:
@@ -14,7 +13,7 @@ with open("dns_records.json", "r") as file:
 
 # Create the email message
 message = MIMEMultipart()
-message["From"] = from_email
+message["From"] = gmail_email
 message["To"] = to_email
 message["Subject"] = "DNS Records Information"
 
@@ -28,12 +27,12 @@ DNS Records Information:
 # Attach the email body
 message.attach(MIMEText(body, "plain"))
 
-# Send the email using SendGrid
+# Send the email using Google SMTP server
 try:
-    server = smtplib.SMTP("smtp.sendgrid.net", 587)
+    server = smtplib.SMTP("smtp.gmail.com", 587)
     server.starttls()
-    server.login(sendgrid_username, sendgrid_password)
-    server.sendmail(from_email, to_email, message.as_string())
+    server.login(gmail_email, gmail_password)
+    server.sendmail(gmail_email, to_email, message.as_string())
     server.quit()
     print("Email sent successfully!")
 except Exception as e:
