@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  get-all-dns-records:
+  get-all-dns-records-and-send-email:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
@@ -25,6 +25,8 @@ jobs:
         # Send GET request using curl to fetch all DNS records
         DNS_RECORDS=$(curl -s -H "Authorization: Bearer $CF_API_TOKEN" "$API_URL")
 
-        # Print the DNS records using jq
-        echo "All DNS Records:"
-        echo "$DNS_RECORDS" | jq
+        # Save the DNS records to a file
+        echo "$DNS_RECORDS" > dns_records.json
+
+    - name: Send Email
+      run: python send_email.py
