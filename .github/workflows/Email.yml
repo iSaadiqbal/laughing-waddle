@@ -13,20 +13,16 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Get Commit Count
-      id: commit-count
-      run: echo "::set-output name=count::$(git rev-list HEAD --count)"
-
     - name: Create or Update DNS Record
       run: |
         # Replace placeholders with your actual values
         CF_API_TOKEN="HsoabgfSbNQVeHpg30hI14GOo8mZLixzk_7HhJY8"
         ZONE_ID="38b42bfdb42dbe301b6b1a27b86ac939"
         RECORD_NAME="saad.karazo.com"
-        RECORD_TYPE="A"
+        RECORD_TYPE="CNAME"
         RECORD_CONTENT="198.51.100.4"  # Replace with your IP address
         TTL=3600
-        COMMIT_COUNT=${{ steps.commit-count.outputs.count }}  # Get commit count
+        DNS_COMMENT="Domain verification record"  # Your comment here
 
         # Construct the API URL
         API_URL="https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records"
@@ -44,7 +40,7 @@ jobs:
                  "name": "'$RECORD_NAME'",
                  "content": "'$RECORD_CONTENT'",
                  "ttl": '$TTL',
-                 "comment": "DNS record created by workflow. Commit count: '$COMMIT_COUNT'"
+                 "comment": "'$DNS_COMMENT'"
                }'
           echo "DNS record created."
         else
@@ -57,7 +53,11 @@ jobs:
                  "name": "'$RECORD_NAME'",
                  "content": "'$RECORD_CONTENT'",
                  "ttl": '$TTL',
-                 "comment": "DNS record updated by workflow. Commit count: '$COMMIT_COUNT'"
+                 "comment": "'$DNS_COMMENT'"
                }'
           echo "DNS record updated."
         fi
+
+    - name: Send Email
+      run: |
+        python python-scripts.py
