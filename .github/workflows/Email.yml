@@ -20,7 +20,7 @@ jobs:
         ZONE_ID="38b42bfdb42dbe301b6b1a27b86ac939"
         RECORD_NAME="saad.karazo.com"
         RECORD_TYPE="CNAME"
-        RECORD_CONTENT="198.51.100.4"  # Replace with your IP address
+        RECORD_CONTENT="192.168.18.250"  # Replace with your IP address
         TTL=3600
         DNS_COMMENT="Domain verification record"  # Your comment here
 
