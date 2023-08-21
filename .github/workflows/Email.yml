@@ -3,7 +3,7 @@ name: Cloudflare DNS and Email
 on:
   push:
     branches:
-      - main  # Adjust the branch name as needed
+      - dns-create-practise  # Adjust the branch name as needed
   workflow_dispatch:
 
 jobs:
@@ -13,12 +13,12 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Check Existing DNS Record
+    - name: Checking Existing DNS Record
       run: |
         # Replace placeholders with your actual values
         CF_API_TOKEN="HsoabgfSbNQVeHpg30hI14GOo8mZLixzk_7HhJY8"
         ZONE_ID="38b42bfdb42dbe301b6b1a27b86ac939"
-        SEARCH_TERM="tayyab"  # The search term for DNS record lookup
+        SEARCH_TERM="saad"  # The search term for DNS record lookup
 
         # Construct the API URL to fetch DNS records with the search term
         API_URL="https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records/?search=$SEARCH_TERM"
