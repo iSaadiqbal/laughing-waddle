@@ -1,6 +1,10 @@
 name: Cloudflare DNS and Email
 
-on: [push]
+on:
+  push:
+    branches:
+      - main  # Adjust the branch name as needed
+  workflow_dispatch:
 
 jobs:
   update-dns:
@@ -16,7 +20,6 @@ jobs:
     - name: Update Comment Count
       id: increment-count
       run: echo $(( {{ steps.get-count.outputs.count }} + 1 )) > count.txt
-    
 
     - name: Check Existing DNS Record
       id: check-dns
