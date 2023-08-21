@@ -1,39 +1,29 @@
 import smtplib
-from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-import subprocess
 
-# Replace placeholders with your actual values
-gmail_email = "saadiqbalbutt89@gmail.com"
-gmail_password = "slmoutqfqdwmbzui"  # Generate an app password from your Google Account settings
-to_email = "saad89.linux@gmail.com"
+def send_email(subject, body):
+    sender_email = "saadiqbalbutt89@gmail.com"
+    sender_password = "slmoutqfqdwmbzui"
+    recipient_email = "saad89.linux@gmail.com"  # Update with recipient's email address
 
-# Run the jq command to format DNS records details
-dns_records = subprocess.run(["jq", ".", "dns_records.json"], capture_output=True, text=True).stdout
+    msg = MIMEText(body)
+    msg["Subject"] = subject
+    msg["From"] = sender_email
+    msg["To"] = recipient_email
 
-# Create the email message
-message = MIMEMultipart()
-message["From"] = gmail_email
-message["To"] = to_email
-message["Subject"] = "DNS Records Information"
+    try:
+        with smtplib.SMTP("smtp.gmail.com", 587) as server:
+            server.starttls()
+            server.login(sender_email, sender_password)
+            server.sendmail(sender_email, recipient_email, msg.as_string())
+            print("Email sent successfully")
+    except Exception as e:
+        print("An error occurred:", e)
 
-# Attach the formatted DNS records to the email body
-body = f"""
-DNS Records Information:
-
-{dns_records}
+# Get the result of the DNS record update from the previous step
+dns_result = """
+DNS record updated by workflow. Commit count: 5
 """
 
-# Attach the email body
-message.attach(MIMEText(body, "plain"))
-
-# Send the email using Google SMTP server
-try:
-    server = smtplib.SMTP("smtp.gmail.com", 587)
-    server.starttls()
-    server.login(gmail_email, gmail_password)
-    server.sendmail(gmail_email, to_email, message.as_string())
-    server.quit()
-    print("Email sent successfully!")
-except Exception as e:
-    print("An error occurred:", str(e))
+# Call the send_email function
+send_email("DNS Record Update Result", dns_result)
