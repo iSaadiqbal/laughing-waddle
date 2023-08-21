@@ -3,29 +3,28 @@ name: Cloudflare DNS and Email
 on:
   push:
     branches:
-      - dns-create-practise  # Adjust the branch name as needed
+      - main  # Adjust the branch name as needed
   workflow_dispatch:
 
 jobs:
-  check-dns:
+  get-all-dns-records:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Checking Existing DNS Record
+    - name: Fetch All DNS Records
       run: |
         # Replace placeholders with your actual values
         CF_API_TOKEN="HsoabgfSbNQVeHpg30hI14GOo8mZLixzk_7HhJY8"
         ZONE_ID="38b42bfdb42dbe301b6b1a27b86ac939"
-        SEARCH_TERM="saad"  # The search term for DNS record lookup
 
-        # Construct the API URL to fetch DNS records with the search term
-        API_URL="https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records/?search=$SEARCH_TERM"
+        # Construct the API URL to fetch all DNS records
+        API_URL="https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records"
 
-        # Send GET request using curl to fetch DNS record details
+        # Send GET request using curl to fetch all DNS records
         DNS_RECORDS=$(curl -s -H "Authorization: Bearer $CF_API_TOKEN" "$API_URL")
 
-        # Print the DNS record details using jq
-        echo "DNS Record Details:"
+        # Print the DNS records using jq
+        echo "All DNS Records:"
         echo "$DNS_RECORDS" | jq
