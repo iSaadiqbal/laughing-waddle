@@ -15,7 +15,8 @@ jobs:
 
     - name: Update Comment Count
       id: increment-count
-      run: echo $(( ${get-count.outputs.count} + 1 )) > count.txt
+      run: echo $(( {{ steps.get-count.outputs.count }} + 1 )) > count.txt
+    
 
     - name: Check Existing DNS Record
       id: check-dns
