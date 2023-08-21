@@ -1,23 +1,33 @@
-name: Email
+name: Cloudflare DNS and Email
 
 on:
   push:
     branches:
-      - master
+      - main  # Adjust the branch name as needed
   workflow_dispatch:
 
 jobs:
-  send_email:
+  check-dns:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.x
+    - name: Check Existing DNS Record
+      run: |
+        # Replace placeholders with your actual values
+        CF_API_TOKEN="HsoabgfSbNQVeHpg30hI14GOo8mZLixzk_7HhJY8"
+        ZONE_ID="38b42bfdb42dbe301b6b1a27b86ac939"
+        RECORD_NAME="saad.karazo.com"
+        RECORD_TYPE="A"
+        RECORD_CONTENT="198.51.100.4"  # Replace with your actual IP address
 
-      - name: Send Email
-        run: |
-          python scripts/send_email.py
+        # Construct the API URL to fetch DNS records
+        API_URL="https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records?type=$RECORD_TYPE&name=$RECORD_NAME&content=$RECORD_CONTENT"
+
+        # Send GET request to fetch DNS record details
+        DNS_RECORD=$(curl -s -H "Authorization: Bearer $CF_API_TOKEN" "$API_URL")
+
+        # Print the DNS record details
+        echo "DNS Record Details:"
+        echo "$DNS_RECORD"
