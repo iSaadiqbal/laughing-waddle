@@ -3,30 +3,57 @@ name: Cloudflare DNS and Email
 on:
   push:
     branches:
-      - main  # Adjust the branch name as needed
+      - dns-create-practise  # Adjust the branch name as needed
   workflow_dispatch:
 
 jobs:
-  get-all-dns-records-and-send-email:
+  create-or-update-dns-record:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Fetch All DNS Records
+    - name: Create or Update DNS Record
       run: |
         # Replace placeholders with your actual values
         CF_API_TOKEN="HsoabgfSbNQVeHpg30hI14GOo8mZLixzk_7HhJY8"
         ZONE_ID="38b42bfdb42dbe301b6b1a27b86ac939"
+        RECORD_NAME="tayyab.karazo.com"
+        RECORD_TYPE="A"
+        RECORD_CONTENT="198.51.100.4"  # Replace with your IP address
+        TTL=3600
+        DNS_COMMENT="Domain verification record"  # Your comment here
 
-        # Construct the API URL to fetch all DNS records
+        # Construct the API URL
         API_URL="https://api.cloudflare.com/client/v4/zones/$ZONE_ID/dns_records"
 
-        # Send GET request using curl to fetch all DNS records
-        DNS_RECORDS=$(curl -s -H "Authorization: Bearer $CF_API_TOKEN" "$API_URL")
+        # Check if the DNS record already exists
+        EXISTING_DNS_RECORD=$(curl -s -H "Authorization: Bearer $CF_API_TOKEN" "$API_URL?type=$RECORD_TYPE&name=$RECORD_NAME&content=$RECORD_CONTENT")
 
-        # Save the DNS records to a file
-        echo "$DNS_RECORDS" > dns_records.json
-
-    - name: Send Email
-      run: python python-scripts.py
+        # Create or update the DNS record
+        if [[ "$EXISTING_DNS_RECORD" == "[]" ]]; then
+          curl -X POST "$API_URL" \
+               -H "Authorization: Bearer $CF_API_TOKEN" \
+               -H "Content-Type: application/json" \
+               --data '{
+                 "type": "'$RECORD_TYPE'",
+                 "name": "'$RECORD_NAME'",
+                 "content": "'$RECORD_CONTENT'",
+                 "ttl": '$TTL',
+                 "comment": "'$DNS_COMMENT'"
+               }'
+          echo "DNS record created."
+        else
+          DNS_RECORD_ID=$(echo "$EXISTING_DNS_RECORD" | jq -r '.result[0].id')
+          curl -X PUT "$API_URL/$DNS_RECORD_ID" \
+               -H "Authorization: Bearer $CF_API_TOKEN" \
+               -H "Content-Type: application/json" \
+               --data '{
+                 "type": "'$RECORD_TYPE'",
+                 "name": "'$RECORD_NAME'",
+                 "content": "'$RECORD_CONTENT'",
+                 "ttl": '$TTL',
+                 "comment": "'$DNS_COMMENT'"
+               }'
+          echo "DNS record updated."
+        fi   
