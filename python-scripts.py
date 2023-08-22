@@ -6,7 +6,7 @@ def send_email(subject, body, recipient_emails):
     sender_password = "slmoutqfqdwmbzui"
 
     msg = MIMEText(body)
-    msg["Subject"] = subject
+    msg["Subject"] = f"{subject} - Trigger Count: {trigger_count}"  # Include trigger count in the subject
     msg["From"] = sender_email
     msg["To"] = ", ".join(recipient_emails)  # Concatenate email addresses
 
@@ -21,17 +21,14 @@ def send_email(subject, body, recipient_emails):
 
 # Get the result of the DNS record update from the previous step
 dns_result = """
-DNS record updated by workflow. Trigger count: $GITHUB_RUN_NUMBER
-DNS details:
-Record Name: saad.karazo.com
-Record Type: CNAME
-Record Content: YOUR_IP_ADDRESS
-TTL: 3600
-Comment: Domain verification record
+DNS record updated by workflow. Trigger count: 5
 """
 
+# Get the trigger count from the environment variables
+trigger_count = int(os.environ.get("GITHUB_RUN_NUMBER", 0))
+
 # List of recipient email addresses
-recipient_emails = ["saad89.linux@gmail.com"]
+recipient_emails = ["saad89.linux@gmail.com", "usamashahid3565@gmail.com", "tayyubtahir87@gmail.com"]
 
 # Call the send_email function
-send_email("DNS Record Update Result (Trigger #$GITHUB_RUN_NUMBER)", dns_result, recipient_emails)
+send_email("DNS Record Update Result", dns_result, recipient_emails)
