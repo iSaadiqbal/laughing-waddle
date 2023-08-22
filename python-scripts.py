@@ -1,18 +1,15 @@
-import os
 import smtplib
 from email.mime.text import MIMEText
-
-# Get the trigger count from the environment variables
-trigger_count = int(os.environ.get("GITHUB_RUN_NUMBER", 0))
+import os
 
 def send_email(subject, body, recipient_emails):
     sender_email = "saadiqbalbutt89@gmail.com"
     sender_password = "slmoutqfqdwmbzui"
 
     msg = MIMEText(body)
-    msg["Subject"] = f"{subject} - Trigger Count: {trigger_count}"
+    msg["Subject"] = subject
     msg["From"] = sender_email
-    msg["To"] = ", ".join(recipient_emails)
+    msg["To"] = ", ".join(recipient_emails)  # Concatenate email addresses
 
     try:
         with smtplib.SMTP("smtp.gmail.com", 587) as server:
@@ -23,18 +20,18 @@ def send_email(subject, body, recipient_emails):
     except Exception as e:
         print("An error occurred:", e)
 
-# Get the result of the DNS record update from the previous step
-dns_name = os.environ.get("DNS_NAME", "N/A")
-dns_type = os.environ.get("DNS_TYPE", "N/A")
-dns_ip = os.environ.get("DNS_IP", "N/A")
+trigger_count = int(os.environ.get("GITHUB_RUN_NUMBER", 0))
+dns_name = os.environ.get("DNS_NAME", "")
+dns_type = os.environ.get("DNS_TYPE", "")
+dns_ip = os.environ.get("DNS_IP", "")
 
+# Get the result of the DNS record update from the previous step
 dns_result = f"""
 DNS record updated by workflow. Trigger count: {trigger_count}
-
 DNS Details:
-Name: {dns_name}
-Type: {dns_type}
-IP Address: {dns_ip}
+  Name: {dns_name}
+  Type: {dns_type}
+  IP Address: {dns_ip}
 """
 
 # List of recipient email addresses
