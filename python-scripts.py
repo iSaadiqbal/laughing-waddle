@@ -7,9 +7,9 @@ def send_email(subject, body, recipient_emails):
     sender_password = "slmoutqfqdwmbzui"
 
     msg = MIMEText(body)
-    msg["Subject"] = f"{subject} - Trigger Count: {trigger_count}"  # Include trigger count in the subject
+    msg["Subject"] = f"{subject} - Trigger Count: {trigger_count}"
     msg["From"] = sender_email
-    msg["To"] = ", ".join(recipient_emails)  # Concatenate email addresses
+    msg["To"] = ", ".join(recipient_emails)
 
     try:
         with smtplib.SMTP("smtp.gmail.com", 587) as server:
@@ -21,8 +21,10 @@ def send_email(subject, body, recipient_emails):
         print("An error occurred:", e)
 
 # Get the result of the DNS record update from the previous step
-dns_result = """
-DNS record updated by workflow. Trigger count: 5
+dns_result = f"""
+DNS record updated by workflow. Trigger count: {trigger_count}
+
+DNS Details: {os.environ.get("DNS_DETAILS", "N/A")}
 """
 
 # Get the trigger count from the environment variables
