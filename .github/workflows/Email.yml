@@ -49,18 +49,23 @@ jobs:
           echo "DNS record created."
         else
           DNS_RECORD_ID=$(echo "$EXISTING_DNS_RECORD" | jq -r '.result[0].id')
-          curl -X PUT "$API_URL/$DNS_RECORD_ID" \
-               -H "Authorization: Bearer $CF_API_TOKEN" \
-               -H "Content-Type: application/json" \
-               --data "{
-                 \"type\": \"$RECORD_TYPE\",
-                 \"name\": \"$RECORD_NAME\",
-                 \"content\": \"$RECORD_CONTENT\",
-                 \"ttl\": $TTL,
-                 \"comment\": \"$DNS_COMMENT\"
-               }"
-          echo "DNS record updated."
-        fi
+            curl -X PUT "$API_URL/$DNS_RECORD_ID" \
+                 -H "Authorization: Bearer $CF_API_TOKEN" \
+                 -H "Content-Type: application/json" \
+                 --data '{
+                   "type": "'$RECORD_TYPE'",
+                   "name": "'$RECORD_NAME'",
+                   "content": "'$RECORD_CONTENT'",
+                   "ttl": '$TTL',
+                   "comment": "'$DNS_COMMENT'"
+                 }'
+            echo "DNS record updated."
+          fi
+
+        env:
+          DNS_NAME: $RECORD_NAME
+          DNS_TYPE: $RECORD_TYPE
+          DNS_IP: $RECORD_CONTENT
 
     - name: Send Email
       run: |
