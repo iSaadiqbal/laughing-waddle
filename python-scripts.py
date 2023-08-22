@@ -35,7 +35,7 @@ DNS Details:
 """
 
 # List of recipient email addresses
-recipient_emails = ["saad89.linux@gmail.com", "usamashahid3565@gmail.com", "tayyubtahir87@gmail.com"]
+recipient_emails = ["saad89.linux@gmail.com"]
 
 # Call the send_email function
 send_email("DNS Record Update Result", dns_result, recipient_emails)
