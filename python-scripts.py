@@ -29,7 +29,7 @@ DNS record updated by workflow. Trigger count: 5
 trigger_count = int(os.environ.get("GITHUB_RUN_NUMBER", 0))
 
 # List of recipient email addresses
-recipient_emails = ["saad89.linux@gmail.com", "usamashahid3565@gmail.com", "tayyubtahir87@gmail.com"]
+recipient_emails = ["saad89.linux@gmail.com"]
 
 # Call the send_email function
 send_email("DNS Record Update Result", dns_result, recipient_emails)
