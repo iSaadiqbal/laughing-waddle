@@ -2,6 +2,9 @@ import os
 import smtplib
 from email.mime.text import MIMEText
 
+# Get the trigger count from the environment variables
+trigger_count = int(os.environ.get("GITHUB_RUN_NUMBER", 0))
+
 def send_email(subject, body, recipient_emails):
     sender_email = "saadiqbalbutt89@gmail.com"
     sender_password = "slmoutqfqdwmbzui"
@@ -21,14 +24,12 @@ def send_email(subject, body, recipient_emails):
         print("An error occurred:", e)
 
 # Get the result of the DNS record update from the previous step
+dns_details = os.environ.get("DNS_DETAILS", "N/A")
 dns_result = f"""
 DNS record updated by workflow. Trigger count: {trigger_count}
 
-DNS Details: {os.environ.get("DNS_DETAILS", "N/A")}
+DNS Details: {dns_details}
 """
-
-# Get the trigger count from the environment variables
-trigger_count = int(os.environ.get("GITHUB_RUN_NUMBER", 0))
 
 # List of recipient email addresses
 recipient_emails = ["saad89.linux@gmail.com"]
