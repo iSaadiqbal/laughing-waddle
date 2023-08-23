@@ -1,5 +1,4 @@
-name: Cloudflare DNS and Email
-
+name: Cloudflare DNS
 on:
   push:
     branches:
@@ -16,9 +15,7 @@ jobs:
     - name: Set DNS Details
       id: set_dns_details
       run: |
-        echo "RECORD_NAME=$RECORD_NAME" >> $GITHUB_ENV
-        echo "RECORD_TYPE=$RECORD_TYPE" >> $GITHUB_ENV
-        echo "RECORD_CONTENT=$RECORD_CONTENT" >> $GITHUB_ENV
+       echo "DNS_DETAILS=Name: $RECORD_NAME, Type: $RECORD_TYPE, IP Address: $RECORD_CONTENT" >> $GITHUB_ENV
     - name: Create or Update DNS Record
       run: |
         # Replace placeholders with your actual values
@@ -60,10 +57,6 @@ jobs:
                }"
           echo "DNS record updated."
         fi
-    - name: Set up email script
-      run: python send_email.py
-
-    env:
-      RECORD_NAME: ${{ env.RECORD_NAME }}
-      RECORD_TYPE: ${{ env.RECORD_TYPE }}
-      RECORD_CONTENT: ${{ env.RECORD_CONTENT }}
+    - name: Send Email
+      run: |
+        python python-scripts.py     # Replace with your email script file name
