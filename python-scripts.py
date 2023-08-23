@@ -21,9 +21,9 @@ def send_email(subject, body, recipient_emails):
         print("An error occurred:", e)
 
 trigger_count = int(os.environ.get("GITHUB_RUN_NUMBER", 0))
-dns_name = os.environ.get("DNS_NAME", "")
-dns_type = os.environ.get("DNS_TYPE", "")
-dns_ip = os.environ.get("DNS_IP", "")
+dns_name = os.environ.get("RECORD_NAME", "")
+dns_type = os.environ.get("RECORD_TYPE", "")
+dns_ip = os.environ.get("RECORD_CONTENT", "")
 
 # Get the result of the DNS record update from the previous step
 dns_result = f'''
