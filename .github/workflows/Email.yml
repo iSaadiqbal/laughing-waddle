@@ -58,9 +58,9 @@ jobs:
           echo "DNS record updated."
         fi
     - name: Set up email script
-        run: python send_email.py
-        env:
-          DNS_DETAILS: |
-            Name: ${{ env.RECORD_NAME }}
-            Type: ${{ env.RECORD_TYPE }}
-            IP Address: ${{ env.RECORD_CONTENT }}
+      run: python send_email.py
+
+env:
+  RECORD_NAME: ${{ env.DNS_NAME }}
+  RECORD_TYPE: ${{ env.DNS_TYPE }}
+  RECORD_CONTENT: ${{ env.DNS_IP }}
