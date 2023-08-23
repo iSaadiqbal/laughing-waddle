@@ -63,6 +63,6 @@ jobs:
       run: python send_email.py
 
 env:
-  RECORD_NAME: ${{ env.DNS_NAME }}
-  RECORD_TYPE: ${{ env.DNS_TYPE }}
-  RECORD_CONTENT: ${{ env.DNS_IP }}
+  RECORD_NAME: ${{ env.RECORD_NAME }}
+  RECORD_TYPE: ${{ env.RECORD_TYPE }}
+  RECORD_CONTENT: ${{ env.RECORD_CONTENT }}
