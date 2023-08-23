@@ -1,5 +1,4 @@
 name: Cloudflare DNS and Email
-
 on:
   push:
     branches:
