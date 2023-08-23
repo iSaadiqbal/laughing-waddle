@@ -1,6 +1,6 @@
-import os
 import smtplib
 from email.mime.text import MIMEText
+import os
 
 def send_email(subject, body, recipient_emails):
     sender_email = "saadiqbalbutt89@gmail.com"
@@ -26,16 +26,11 @@ dns_type = os.environ.get("DNS_TYPE", "")
 dns_ip = os.environ.get("DNS_IP", "")
 
 # Get the result of the DNS record update from the previous step
-dns_result = f"""
+dns_result = f'''
 DNS record updated by workflow. Trigger count: {trigger_count}
 DNS Details:
   Name: {dns_name}
   Type: {dns_type}
   IP Address: {dns_ip}
-"""
-
-# List of recipient email addresses
-recipient_emails = ["saad89.linux@gmail.com", "usamashahid3565@gmail.com", "tayyubtahir87@gmail.com"]
-
-# Call the send_email function
-send_email("DNS Record Update Result", dns_result, recipient_emails)
+'''
+send_email("DNS Record Update Result", dns_result, ["saad89.linux@gmail.com"])
