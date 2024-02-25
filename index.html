@@ -3,56 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Small Website</title>
+    <title>Jokes Website</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f35424a;
+            background-color: #f0f0f0;
         }
-        header, nav, main, footer {
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
             padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        header {
-            background-color: #f2f2f2;
-            color: white red;
+        h1 {
             text-align: center;
+            color: #333;
         }
-        nav ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-        }
-        nav ul li {
-            display: inline;
-            margin-right: 15px;
-        }
-        a {
-            text-decoration: none;
-            color: #35424a;
+        .joke {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Welcome to tayyab Website</h1>
-    </header>
-    <nav>
-        <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Services</a></li>
-            <li><a href="#">Contact</a></li>
-            <li><a href="#">Map us</a></li>
-        </ul>
-    </nav>
-    <main>
-        <h2>About Us</h2>
-        <p>We are a small team dedicated to creating beautiful and functional websites.</p>
-    </main>
-    <footer>
-        <p>&copy; 2023 My Simple Website</p>
-    </footer>
+    <div class="container">
+        <h1>Jokes Website</h1>
+        <div class="joke">
+            <h2>Karachi Joke</h2>
+            <p>Why did the computer go to Karachi? Because it had a byte of the city!</p>
+        </div>
+        <div class="joke">
+            <h2>Bhojpuri Joke</h2>
+            <p>Why was the Bhojpuri book sad? Because it had too many tear-jerkers!</p>
+        </div>
+    </div>
 </body>
 </html>
